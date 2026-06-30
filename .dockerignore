@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Environment (secrets in .env should NOT be in image)
+.env
+
+# Output / uploads (runtime data)
+output/
+updated/
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+test_session_*/

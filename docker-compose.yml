@@ -1,0 +1,53 @@
+# ============================================================
+# 智析协同助手 | 多智能体协作分析系统
+# Docker Compose 一键部署配置
+#
+# 启动:  docker compose up -d
+# 停止:  docker compose down
+# 查看:  http://localhost:8080
+# ============================================================
+
+services:
+  # --- 后端 API 服务 (FastAPI + LangGraph) ---
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: deepsearch-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LLM_QWEN_MAX=${LLM_QWEN_MAX:-qwen-max}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      - RAGFLOW_API_URL=${RAGFLOW_API_URL:-http://localhost:9380}
+      - RAGFLOW_API_KEY=${RAGFLOW_API_KEY}
+      - MYSQL_HOST=${MYSQL_HOST:-localhost}
+      - MYSQL_PORT=${MYSQL_PORT:-3306}
+      - MYSQL_USER=${MYSQL_USER:-root}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-pharma_db}
+    volumes:
+      - ./output:/app/output
+      - ./updated:/app/updated
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # --- 前端 (Vue 3 + Nginx) ---
+  frontend:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: deepsearch-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

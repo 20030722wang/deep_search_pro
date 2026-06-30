@@ -1,0 +1,34 @@
+[project]
+name = "deep-search-pro"
+version = "0.1.0"
+description = "智析协同助手 | 多智能体协作分析系统 — 基于 LangGraph 的多智能体深度搜索平台"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiofiles>=23.0.0",
+    "deepagents>=0.1.0",
+    "fastapi>=0.100.0",
+    "langchain>=0.2.0",
+    "langchain-community>=0.2.0",
+    "langchain-core>=0.2.0",
+    "langchain-openai>=0.1.0",
+    "langgraph>=0.1.0",
+    "markdown>=3.10.2",
+    "mysql-connector-python>=8.0.0",
+    "openai>=1.0.0",
+    "openpyxl>=3.1.0",
+    "pandas>=2.0.0",
+    "pydantic>=2.0.0",
+    "pypdf>=3.0.0",
+    "python-docx>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "python-multipart>=0.0.6",
+    # "pywin32>=312",  # Windows-only: 仅在 Windows 开发环境手动安装，Docker 不需要
+    "pyyaml>=6.0",
+    "ragflow-sdk>=0.1.0",
+    "requests>=2.31.0",
+    "tavily-python>=0.3.0",
+    "typing-extensions>=4.5.0",
+    "uvicorn[standard]>=0.20.0",
+    "weasyprint>=60.0",
+]

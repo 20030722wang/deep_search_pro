@@ -1,0 +1,37 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Environment variables (contains secrets)
+.env
+
+# Output and session data
+output/
+updated/
+
+# Test artifacts
+test_session_*/
+*_test_session_*/
+
+# Development notes
+项目步骤
+
+# IDE
+.idea/
+.vscode/
+
+# Package manager
+uv.lock
+Pipfile.lock
+poetry.lock
+
+# OS
+.DS_Store
+Thumbs.db
