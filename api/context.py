@@ -36,8 +36,11 @@ _session_dir_ctx: ContextVar[Optional[str]] = ContextVar("session_dir", default=
 # - 场景 ：当 Agent 打印日志或者通过 WebSocket 给前端发消息时，它需要知道：“我现在是正在服务张三，还是李四？” 这样消息才不会发错人。
 _thread_id_ctx: ContextVar[Optional[str]] = ContextVar("thread_id", default=None)
 
+# - 作用：追踪请求链路的唯一标识，用于日志关联和 X-Request-ID 响应头
+_request_id_ctx: ContextVar[Optional[str]] = ContextVar("request_id", default=None)
 
-def set_session_context(path: str):
+
+def set_session_context(path: str) -> object:
     """
     设置当前请求链路的会话目录。
     通常在 Agent 开始执行任务前调用。
@@ -65,6 +68,21 @@ def get_thread_context() -> Optional[str]:
     获取当前请求链路的 Thread ID。
     """
     return _thread_id_ctx.get()
+
+def set_request_context_id(request_id: str) -> object:
+    """设置当前请求链路的 Request ID"""
+    return _request_id_ctx.set(request_id)
+
+
+def get_request_context_id() -> Optional[str]:
+    """获取当前请求链路的 Request ID"""
+    return _request_id_ctx.get()
+
+
+def reset_request_context_id(token: object) -> None:
+    """重置 Request ID"""
+    _request_id_ctx.reset(token)
+
 
 def reset_session_context(session_token, thread_token=None):
     """

@@ -34,3 +34,9 @@ Thumbs.db
 
 # Test files
 test_session_*/
+
+# Dev scripts (not needed in production image)
+scripts/
+.python-version
+pyproject.toml
+uv.lock
