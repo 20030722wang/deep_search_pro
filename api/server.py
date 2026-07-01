@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, UploadFile, File, Form
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -43,10 +44,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="DeepAgents API", lifespan=lifespan)
 
-# 挂载输出目录，以便前端访问生成的静态文件
-# 假设输出目录位于项目根目录下的 output
+# 挂载输出目录，以便前端直接访问生成的静态文件
 output_dir = project_root / "output"
 output_dir.mkdir(exist_ok=True)
+app.mount("/outputs", StaticFiles(directory=str(output_dir)), name="outputs")
 
 # 定义上传目录 updated
 updated_dir = project_root / "updated"

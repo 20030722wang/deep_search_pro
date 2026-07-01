@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+# ============================================================
+# RAGFlow 聊天助手 Demo（开发参考，非生产代码）
+# 本文件仅用于本地开发调试，工具函数的生产版本见：
+#   tools/ragflow_tools.py (get_assistant_list / create_ask_delete)
+# ============================================================
 # 导入依赖
 from ragflow_sdk import RAGFlow #链接rag服务的客户端
 from ragflow.rag_config import _load_ragflow_env
